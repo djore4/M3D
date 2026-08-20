@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getAdminUser } from "@/lib/auth";
 import AdminNav from "@/components/admin/AdminNav";
 import LogoutButton from "@/components/admin/LogoutButton";
+import CubeMark from "@/components/CubeMark";
 
 export const dynamic = "force-dynamic";
 
@@ -17,9 +18,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="flex min-h-screen bg-slate-100">
       <aside className="hidden w-60 flex-col border-r border-slate-200 bg-white p-4 sm:flex">
-        <Link href="/admin" className="mb-6 flex items-center gap-2 font-bold text-slate-900">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-600 text-sm text-white">3D</span>
-          Gestão
+        <Link href="/admin" className="mb-6 flex items-center gap-2 font-display font-bold text-slate-900">
+          <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-600 text-white">
+            <CubeMark className="h-5 w-5" />
+          </span>
+          M3D · Gestão
         </Link>
         <AdminNav />
         <div className="mt-auto border-t border-slate-200 pt-4">

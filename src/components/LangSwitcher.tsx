@@ -6,13 +6,13 @@ import { LANGS } from "@/lib/i18n";
 export default function LangSwitcher() {
   const { lang, setLang } = useLang();
   return (
-    <div className="flex items-center gap-1 text-xs font-semibold">
+    <div className="flex items-center rounded-xl border border-ink-200 bg-white/80 p-0.5">
       {LANGS.map((l) => (
         <button
           key={l}
           onClick={() => setLang(l)}
-          className={`rounded px-2 py-1 uppercase transition ${
-            lang === l ? "bg-brand-600 text-white" : "text-slate-500 hover:bg-slate-100"
+          className={`num rounded-lg px-2 py-1 text-[11px] font-bold uppercase tracking-wider transition ${
+            lang === l ? "bg-brand-600 text-white" : "text-ink-400 hover:text-ink-700"
           }`}
           aria-pressed={lang === l}
         >
