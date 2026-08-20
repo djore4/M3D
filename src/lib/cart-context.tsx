@@ -3,7 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { CartItem } from "./types";
 
-const STORAGE_KEY = "printproject.cart.v1";
+const STORAGE_KEY = "m3d.cart.v1";
 
 type CartContextValue = {
   items: CartItem[];

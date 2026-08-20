@@ -35,7 +35,7 @@ function LoginForm() {
           <div className="mx-auto mb-2 grid h-12 w-12 place-items-center rounded-xl bg-brand-600 text-lg font-bold text-white">
             3D
           </div>
-          <h1 className="text-xl font-bold text-slate-900">Gestão · PrintProject</h1>
+          <h1 className="text-xl font-bold text-slate-900">Gestão · M3D</h1>
           <p className="text-sm text-slate-500">Inicia sessão para gerir a loja</p>
         </div>
 

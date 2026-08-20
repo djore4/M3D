@@ -14,7 +14,7 @@ export default function Navbar() {
       <div className="container-page flex h-16 items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2 font-bold text-slate-900">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-600 text-white">3D</span>
-          <span className="hidden sm:inline">PrintProject</span>
+          <span className="hidden sm:inline">M3D</span>
         </Link>
 
         <nav className="flex items-center gap-1 text-sm font-medium text-slate-600">

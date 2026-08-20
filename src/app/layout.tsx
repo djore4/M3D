@@ -3,7 +3,7 @@ import "./globals.css";
 import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
-  title: "PrintProject — Merchandising 3D",
+  title: "M3D — Merchandising 3D",
   description: "Loja online de merchandising impresso em 3D.",
 };
 

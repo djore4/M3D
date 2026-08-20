@@ -1,5 +1,5 @@
 {
-  "name": "printproject",
+  "name": "m3d",
   "version": "0.1.0",
   "private": true,
   "description": "Loja online de merchandising impresso em 3D (Next.js + Supabase + Stripe)",

@@ -1,4 +1,4 @@
-# PrintProject — Loja de Merchandising 3D
+# M3D — Loja de Merchandising 3D
 
 Loja online completa para venda de merchandising impresso em 3D, com backoffice de
 gestão, carrinho, checkout e pagamentos.
