@@ -1,5 +1,5 @@
 -- =====================================================================
--- PrintProject — schema inicial
+-- M3D — schema inicial
 -- Loja de merchandising impresso em 3D
 -- Executar no SQL Editor do Supabase (ou via `supabase db push`).
 -- =====================================================================

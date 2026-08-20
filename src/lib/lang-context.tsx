@@ -3,7 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { DEFAULT_LANG, t as translate, type Lang, type TranslationKey } from "./i18n";
 
-const STORAGE_KEY = "printproject.lang";
+const STORAGE_KEY = "m3d.lang";
 
 type LangContextValue = {
   lang: Lang;
