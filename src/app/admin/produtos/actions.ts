@@ -3,8 +3,12 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { getAdminUser } from "@/lib/auth";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
 import { slugify } from "@/lib/format";
+
+// As escritas da gestão usam o cliente autenticado (sessão do admin) e são
+// autorizadas pela Row Level Security (política `authenticated`). Assim não
+// dependem da SERVICE_ROLE_KEY — o backoffice funciona sem configuração extra.
 
 const BUCKET = "product-images";
 
@@ -46,7 +50,7 @@ function buildProductPayload(formData: FormData) {
 
 export async function createProduct(formData: FormData) {
   await requireAdmin();
-  const supabase = createAdminClient();
+  const supabase = createClient();
   const payload = buildProductPayload(formData);
 
   if (!payload.name_pt) throw new Error("O nome (PT) é obrigatório");
@@ -67,7 +71,7 @@ export async function createProduct(formData: FormData) {
 
 export async function updateProduct(id: string, formData: FormData) {
   await requireAdmin();
-  const supabase = createAdminClient();
+  const supabase = createClient();
   const payload = buildProductPayload(formData);
 
   if (!payload.name_pt) throw new Error("O nome (PT) é obrigatório");
@@ -83,7 +87,7 @@ export async function updateProduct(id: string, formData: FormData) {
 
 export async function deleteProduct(id: string) {
   await requireAdmin();
-  const supabase = createAdminClient();
+  const supabase = createClient();
 
   // Apaga as imagens do storage associadas
   const { data: images } = await supabase
@@ -103,7 +107,7 @@ export async function deleteProduct(id: string) {
 
 export async function uploadProductImage(formData: FormData) {
   await requireAdmin();
-  const supabase = createAdminClient();
+  const supabase = createClient();
 
   const productId = String(formData.get("product_id") ?? "");
   const file = formData.get("file") as File | null;
@@ -140,7 +144,7 @@ export async function uploadProductImage(formData: FormData) {
 
 export async function deleteProductImage(imageId: string, productId: string) {
   await requireAdmin();
-  const supabase = createAdminClient();
+  const supabase = createClient();
 
   const { data: image } = await supabase
     .from("product_images")
