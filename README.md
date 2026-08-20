@@ -70,9 +70,38 @@ npm run dev        # http://localhost:3000
 - O acesso ao `/admin` é restrito ao email definido em `ADMIN_EMAIL` (verificado no middleware e nas server actions).
 - As tabelas têm **Row Level Security**: catálogo é público para leitura; encomendas só o admin lê.
 
-## Deploy
-Recomendado: **Vercel** (frontend) + **Supabase** (backend). Define as mesmas variáveis de
-ambiente no painel da Vercel e atualiza o webhook do Stripe para o domínio de produção.
+## Deploy (publicar online a partir do GitHub)
+
+O código vive no GitHub; a **Vercel** executa-o e liga-o ao Supabase, dando um link público.
+Cada `git push` para a branch principal volta a publicar automaticamente.
+
+### Passos (uma só vez)
+1. Entra em **[vercel.com](https://vercel.com)** com o botão **"Continue with GitHub"**.
+2. **Add New… → Project** e importa o repositório **`djore4/M3D`**.
+3. Em **Environment Variables**, adiciona (ver tabela abaixo) e clica **Deploy**.
+4. No fim recebes um link do tipo `https://m3d.vercel.app` — é o teu site, acessível em qualquer lugar.
+
+### Variáveis de ambiente (Settings → Environment Variables)
+| Variável | Necessária para | Onde obter |
+|----------|-----------------|------------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Tudo | Supabase → Settings → API |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Tudo | Supabase → Settings → API |
+| `ADMIN_EMAIL` | Login da gestão | O teu email |
+| `NEXT_PUBLIC_SITE_URL` | Redirects do pagamento | O URL da Vercel (ex.: `https://m3d.vercel.app`) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Checkout, uploads de fotos | Supabase → Settings → API (chave secreta) |
+| `STRIPE_SECRET_KEY` | Pagamentos | Stripe → Developers → API keys |
+| `STRIPE_WEBHOOK_SECRET` | Confirmar pagamentos | Stripe → Developers → Webhooks |
+
+> A montra e o login funcionam logo só com as 3 primeiras + `NEXT_PUBLIC_SITE_URL`.
+> As chaves do Stripe e a `SERVICE_ROLE` podem ser adicionadas depois, para ativar os pagamentos.
+
+### Passos extra no Supabase (uma vez)
+- **Storage → New bucket** público chamado `product-images` (para os uploads de fotos).
+- **Authentication → Users** já tem o admin criado.
+
+### Stripe (quando quiseres ativar pagamentos)
+- Cria o webhook em `https://<o-teu-dominio>/api/stripe/webhook` a ouvir `checkout.session.completed`.
+- Depois de definir/alterar variáveis na Vercel, faz **Redeploy** para aplicarem.
 
 ## Próximos passos possíveis
 - Emails de confirmação de encomenda (ex.: Resend)
