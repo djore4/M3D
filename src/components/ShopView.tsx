@@ -5,12 +5,16 @@ import ProductGrid from "./ProductGrid";
 import type { Product } from "@/lib/types";
 
 export default function ShopView({ products }: { products: Product[] }) {
-  const { t } = useLang();
+  const { lang, t } = useLang();
   return (
-    <div className="container-page py-10">
-      <h1 className="mb-6 text-3xl font-bold text-slate-900">{t("shop.title")}</h1>
+    <div className="container-page py-12">
+      <p className="eyebrow mb-2">{lang === "pt" ? "Catálogo completo" : "Full catalogue"}</p>
+      <h1 className="mb-8 text-4xl font-extrabold text-ink-950">{t("shop.title")}</h1>
       {products.length === 0 ? (
-        <p className="text-slate-500">{t("shop.empty")}</p>
+        <div className="card grid place-items-center p-16 text-center">
+          <span className="text-4xl">🖨️</span>
+          <p className="mt-3 text-ink-500">{t("shop.empty")}</p>
+        </div>
       ) : (
         <ProductGrid products={products} />
       )}

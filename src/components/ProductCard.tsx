@@ -17,37 +17,35 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/produto/${product.slug}`}
-      className="card group overflow-hidden transition hover:shadow-md"
+      className="group card overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lift"
     >
-      <div className="relative aspect-square overflow-hidden bg-slate-100">
+      <div className="relative aspect-square overflow-hidden bg-ink-100">
         {image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={image}
             alt={name}
-            className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="grid h-full w-full place-items-center text-slate-300">
-            <span className="text-5xl">🖨️</span>
+          <div className="grid h-full w-full place-items-center bg-gradient-to-br from-ink-100 to-ink-200 text-5xl text-ink-300">
+            🖨️
           </div>
         )}
-        <div className="absolute left-2 top-2 flex flex-col gap-1">
+        <div className="absolute left-2.5 top-2.5 flex flex-col gap-1.5">
           {product.is_featured && (
-            <span className="badge bg-amber-100 text-amber-800">★ {t("product.featured")}</span>
+            <span className="badge bg-white/90 text-brand-700 backdrop-blur">★ {t("product.featured")}</span>
           )}
-          {hasPromo && <span className="badge bg-red-100 text-red-700">{t("product.promo")}</span>}
-          {soldOut && <span className="badge bg-slate-200 text-slate-600">{t("product.outOfStock")}</span>}
+          {hasPromo && <span className="badge bg-rose-600 text-white">{t("product.promo")}</span>}
+          {soldOut && <span className="badge bg-ink-900/80 text-white backdrop-blur">{t("product.outOfStock")}</span>}
         </div>
       </div>
       <div className="p-4">
-        <h3 className="line-clamp-1 font-semibold text-slate-900">{name}</h3>
-        <div className="mt-1 flex items-baseline gap-2">
-          <span className="text-lg font-bold text-brand-700">{formatPrice(price, lang)}</span>
+        <h3 className="line-clamp-1 font-semibold text-ink-900">{name}</h3>
+        <div className="mt-1.5 flex items-baseline gap-2">
+          <span className="num text-[17px] font-semibold text-ink-950">{formatPrice(price, lang)}</span>
           {hasPromo && (
-            <span className="text-sm text-slate-400 line-through">
-              {formatPrice(product.price_cents, lang)}
-            </span>
+            <span className="num text-[13px] text-ink-400 line-through">{formatPrice(product.price_cents, lang)}</span>
           )}
         </div>
       </div>

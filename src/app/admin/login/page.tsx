@@ -3,6 +3,7 @@
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import CubeMark from "@/components/CubeMark";
 
 function LoginForm() {
   const router = useRouter();
@@ -32,11 +33,11 @@ function LoginForm() {
     <div className="grid min-h-screen place-items-center bg-slate-100 px-4">
       <form onSubmit={handleSubmit} className="card w-full max-w-sm space-y-4 p-8">
         <div className="text-center">
-          <div className="mx-auto mb-2 grid h-12 w-12 place-items-center rounded-xl bg-brand-600 text-lg font-bold text-white">
-            3D
+          <div className="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-xl bg-brand-600 text-white shadow-soft">
+            <CubeMark className="h-7 w-7" />
           </div>
-          <h1 className="text-xl font-bold text-slate-900">Gestão · M3D</h1>
-          <p className="text-sm text-slate-500">Inicia sessão para gerir a loja</p>
+          <h1 className="font-display text-xl font-bold text-ink-950">Gestão · M3D</h1>
+          <p className="text-sm text-ink-500">Inicia sessão para gerir a loja</p>
         </div>
 
         <div>
