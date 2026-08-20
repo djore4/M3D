@@ -1,4 +1,5 @@
 import { createClient } from "./supabase/server";
+import { ADMIN_EMAIL } from "./supabase/config";
 
 /**
  * Devolve o utilizador autenticado SE for o administrador autorizado
@@ -12,8 +13,7 @@ export async function getAdminUser() {
 
   if (!user) return null;
 
-  const adminEmail = process.env.ADMIN_EMAIL?.toLowerCase().trim();
-  if (adminEmail && user.email?.toLowerCase().trim() !== adminEmail) {
+  if (ADMIN_EMAIL && user.email?.toLowerCase().trim() !== ADMIN_EMAIL) {
     return null;
   }
   return user;
