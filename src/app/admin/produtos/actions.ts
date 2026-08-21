@@ -43,6 +43,7 @@ function buildProductPayload(formData: FormData) {
     is_promo: formData.get("is_promo") === "on",
     is_featured: formData.get("is_featured") === "on",
     stock: parseInt(String(formData.get("stock") ?? "0"), 10) || 0,
+    sizes: formData.getAll("sizes").map((s) => String(s)).filter((s) => ["S", "M", "L"].includes(s)),
     google_photos_url: String(formData.get("google_photos_url") ?? "").trim() || null,
     active: formData.get("active") === "on",
   };

@@ -18,6 +18,7 @@ export type Product = {
   is_promo: boolean;
   is_featured: boolean;
   stock: number;
+  sizes: string[];
   google_photos_url: string | null;
   active: boolean;
   created_at: string;
@@ -62,6 +63,7 @@ export type OrderItem = {
   order_id: string;
   product_id: string | null;
   name: string;
+  size: string | null;
   unit_price_cents: number;
   quantity: number;
 };
@@ -71,11 +73,17 @@ export type CartItem = {
   productId: string;
   slug: string;
   name: string;
+  size: string | null;
   unitPriceCents: number;
   quantity: number;
   imageUrl: string | null;
   stock: number;
 };
+
+/** Chave única de uma linha de carrinho (produto + tamanho). */
+export function cartKey(productId: string, size: string | null): string {
+  return `${productId}|${size ?? ""}`;
+}
 
 /** Preço efetivo de um produto (considera promoção). */
 export function effectivePriceCents(p: Pick<Product, "price_cents" | "promo_price_cents" | "is_promo">): number {

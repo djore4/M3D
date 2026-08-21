@@ -5,33 +5,32 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Assinatura M3D — cobalto/índigo profundo (premium, técnico)
+        // Superfícies (tema escuro técnico)
+        bg: "#08080c",
+        bg2: "#0d0d13",
+        surface: "#131319",
+        surface2: "#1a1a23",
+        line: "#26262f",
+        line2: "#34343f",
+        fg: "#f2f2f7",
+        muted: "#9a9aac",
+        faint: "#63636f",
+        // Acento — violeta elétrico
         brand: {
-          50: "#eef0ff",
-          100: "#e0e3ff",
-          200: "#c6ccff",
-          300: "#a3a9ff",
-          400: "#7f80fb",
-          500: "#635df2",
-          600: "#4b3fe4", // primária
-          700: "#3d2fc9",
-          800: "#3229a2",
-          900: "#2c2780",
+          50: "#f0edff",
+          100: "#e3ddff",
+          200: "#c9bfff",
+          300: "#a99bff",
+          400: "#8b7cff",
+          500: "#7c6cff", // acento
+          600: "#6d5efc",
+          700: "#5a4de0",
+          800: "#4a3fb8",
+          900: "#3d3593",
         },
-        // Neutros escolhidos — carvão levemente frio + porcelana
-        ink: {
-          50: "#f6f6f9",
-          100: "#ececf1",
-          200: "#d9dae3",
-          300: "#b7b9c9",
-          400: "#8d8fa6",
-          500: "#6b6d86",
-          600: "#53556c",
-          700: "#414258",
-          800: "#2b2c3d",
-          900: "#191926",
-          950: "#101019",
-        },
+        accent2: "#22d3ee",
+        sale: "#fb7185",
+        good: "#34d399",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
@@ -39,12 +38,12 @@ const config: Config = {
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       boxShadow: {
-        soft: "0 1px 2px rgba(16,16,25,.04), 0 10px 30px -12px rgba(16,16,25,.12)",
-        lift: "0 2px 4px rgba(16,16,25,.05), 0 18px 40px -16px rgba(75,63,228,.28)",
+        glow: "0 0 0 1px rgba(124,108,255,.35), 0 16px 44px -14px rgba(124,108,255,.5)",
+        soft: "0 1px 2px rgba(0,0,0,.4), 0 20px 46px -22px rgba(0,0,0,.7)",
       },
       borderRadius: {
         xl: "0.9rem",
-        "2xl": "1.25rem",
+        "2xl": "1.15rem",
       },
     },
   },

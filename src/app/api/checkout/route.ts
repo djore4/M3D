@@ -9,7 +9,7 @@ import type { Product, ShippingRate } from "@/lib/types";
 export const runtime = "nodejs";
 
 type Body = {
-  items: { productId: string; quantity: number }[];
+  items: { productId: string; quantity: number; size?: string | null }[];
   shippingRateId: string;
   customer: {
     email: string;
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
   if (!rate) return NextResponse.json({ error: "Método de envio inválido" }, { status: 400 });
 
   // 3) Construir as linhas validadas
-  const lineItems: { product: Product; quantity: number; unitPriceCents: number }[] = [];
+  const lineItems: { product: Product; quantity: number; unitPriceCents: number; size: string | null }[] = [];
   let subtotalCents = 0;
 
   for (const item of items) {
@@ -70,9 +70,12 @@ export async function POST(req: Request) {
     if (product.stock < 1) {
       return NextResponse.json({ error: `Sem stock: ${product.name_pt}` }, { status: 400 });
     }
+    // Valida o tamanho contra os tamanhos disponíveis do produto
+    const size =
+      item.size && product.sizes?.includes(item.size) ? item.size : product.sizes?.[0] ?? null;
     const unit = effectivePriceCents(product);
     subtotalCents += unit * qty;
-    lineItems.push({ product, quantity: qty, unitPriceCents: unit });
+    lineItems.push({ product, quantity: qty, unitPriceCents: unit, size });
   }
 
   const shippingCents = shippingCostCents(rate, subtotalCents);
@@ -110,6 +113,7 @@ export async function POST(req: Request) {
       order_id: orderId,
       product_id: l.product.id,
       name: l.product.name_pt,
+      size: l.size,
       unit_price_cents: l.unitPriceCents,
       quantity: l.quantity,
     }))
@@ -126,7 +130,7 @@ export async function POST(req: Request) {
       currency: "eur",
       unit_amount: l.unitPriceCents,
       product_data: {
-        name: l.product.name_pt,
+        name: l.size ? `${l.product.name_pt} (${l.size})` : l.product.name_pt,
         images: l.product.product_images?.[0]?.url ? [l.product.product_images[0].url] : undefined,
       },
     },
