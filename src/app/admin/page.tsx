@@ -12,10 +12,10 @@ const STATUS_LABEL: Record<string, string> = {
   cancelled: "Cancelado",
 };
 const STATUS_STYLE: Record<string, string> = {
-  pending: "bg-amber-100 text-amber-800",
-  paid: "bg-green-100 text-green-800",
-  shipped: "bg-blue-100 text-blue-800",
-  cancelled: "bg-slate-200 text-slate-600",
+  pending: "bg-amber-500/15 text-amber-300",
+  paid: "bg-good/15 text-good",
+  shipped: "bg-brand-500/15 text-brand-200",
+  cancelled: "bg-white/10 text-muted",
 };
 
 export default async function AdminDashboard() {
@@ -45,7 +45,7 @@ export default async function AdminDashboard() {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-900">Painel</h1>
+        <h1 className="text-2xl font-bold text-fg">Painel</h1>
         <Link href="/admin/produtos/novo" className="btn-primary">
           + Novo produto
         </Link>
@@ -54,26 +54,26 @@ export default async function AdminDashboard() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {cards.map((c) => (
           <div key={c.label} className="card p-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-slate-400">{c.label}</p>
-            <p className="mt-1 text-2xl font-bold text-slate-900">{c.value}</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-faint">{c.label}</p>
+            <p className="mt-1 text-2xl font-bold text-fg">{c.value}</p>
           </div>
         ))}
       </div>
 
       <div className="mt-8">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-slate-900">Encomendas recentes</h2>
+          <h2 className="text-lg font-semibold text-fg">Encomendas recentes</h2>
           <Link href="/admin/encomendas" className="text-sm text-brand-600 hover:underline">
             Ver todas
           </Link>
         </div>
         <div className="card overflow-hidden">
           {recent.length === 0 ? (
-            <p className="p-6 text-sm text-slate-500">Ainda não há encomendas.</p>
+            <p className="p-6 text-sm text-muted">Ainda não há encomendas.</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead className="bg-slate-50 text-left text-xs uppercase text-slate-400">
+                <thead className="bg-surface2 text-left text-xs uppercase text-faint">
                   <tr>
                     <th className="px-4 py-3">Data</th>
                     <th className="px-4 py-3">Cliente</th>
@@ -81,20 +81,20 @@ export default async function AdminDashboard() {
                     <th className="px-4 py-3 text-right">Total</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-line">
                   {recent.map((o) => (
-                    <tr key={o.id} className="hover:bg-slate-50">
-                      <td className="whitespace-nowrap px-4 py-3 text-slate-500">
+                    <tr key={o.id} className="hover:bg-surface2">
+                      <td className="whitespace-nowrap px-4 py-3 text-muted">
                         {formatDate(o.created_at, "pt")}
                       </td>
                       <td className="px-4 py-3">
-                        <div className="font-medium text-slate-900">{o.customer_name || "—"}</div>
-                        <div className="text-xs text-slate-400">{o.customer_email}</div>
+                        <div className="font-medium text-fg">{o.customer_name || "—"}</div>
+                        <div className="text-xs text-faint">{o.customer_email}</div>
                       </td>
                       <td className="px-4 py-3">
                         <span className={`badge ${STATUS_STYLE[o.status]}`}>{STATUS_LABEL[o.status]}</span>
                       </td>
-                      <td className="px-4 py-3 text-right font-semibold text-slate-900">
+                      <td className="px-4 py-3 text-right font-semibold text-fg">
                         {formatPrice(o.total_cents, "pt")}
                       </td>
                     </tr>

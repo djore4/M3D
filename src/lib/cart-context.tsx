@@ -1,18 +1,19 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import type { CartItem } from "./types";
+import { cartKey, type CartItem } from "./types";
 
-const STORAGE_KEY = "m3d.cart.v1";
+const STORAGE_KEY = "m3d.cart.v2";
 
 type CartContextValue = {
   items: CartItem[];
   count: number;
   subtotalCents: number;
   addItem: (item: Omit<CartItem, "quantity">, qty?: number) => void;
-  setQuantity: (productId: string, qty: number) => void;
-  removeItem: (productId: string) => void;
+  setQuantity: (key: string, qty: number) => void;
+  removeItem: (key: string) => void;
   clear: () => void;
+  keyOf: (item: Pick<CartItem, "productId" | "size">) => string;
   ready: boolean;
 };
 
@@ -22,7 +23,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [ready, setReady] = useState(false);
 
-  // Carrega do localStorage no arranque
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -33,7 +33,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setReady(true);
   }, []);
 
-  // Persiste alterações
   useEffect(() => {
     if (!ready) return;
     try {
@@ -43,22 +42,30 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [items, ready]);
 
+  const keyOf = useCallback(
+    (item: Pick<CartItem, "productId" | "size">) => cartKey(item.productId, item.size),
+    []
+  );
+
   const addItem = useCallback((item: Omit<CartItem, "quantity">, qty = 1) => {
+    const key = cartKey(item.productId, item.size);
     setItems((prev) => {
-      const existing = prev.find((i) => i.productId === item.productId);
+      const existing = prev.find((i) => cartKey(i.productId, i.size) === key);
       if (existing) {
         const nextQty = Math.min(existing.quantity + qty, Math.max(item.stock, 1));
-        return prev.map((i) => (i.productId === item.productId ? { ...i, ...item, quantity: nextQty } : i));
+        return prev.map((i) =>
+          cartKey(i.productId, i.size) === key ? { ...i, ...item, quantity: nextQty } : i
+        );
       }
       return [...prev, { ...item, quantity: Math.min(qty, Math.max(item.stock, 1)) }];
     });
   }, []);
 
-  const setQuantity = useCallback((productId: string, qty: number) => {
+  const setQuantity = useCallback((key: string, qty: number) => {
     setItems((prev) =>
       prev
         .map((i) =>
-          i.productId === productId
+          cartKey(i.productId, i.size) === key
             ? { ...i, quantity: Math.max(0, Math.min(qty, Math.max(i.stock, 1))) }
             : i
         )
@@ -66,8 +73,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     );
   }, []);
 
-  const removeItem = useCallback((productId: string) => {
-    setItems((prev) => prev.filter((i) => i.productId !== productId));
+  const removeItem = useCallback((key: string) => {
+    setItems((prev) => prev.filter((i) => cartKey(i.productId, i.size) !== key));
   }, []);
 
   const clear = useCallback(() => setItems([]), []);
@@ -91,6 +98,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setQuantity,
     removeItem,
     clear,
+    keyOf,
     ready,
   };
 

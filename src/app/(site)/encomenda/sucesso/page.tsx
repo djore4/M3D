@@ -19,14 +19,14 @@ function SuccessContent() {
 
   return (
     <div className="card mx-auto max-w-lg p-10 text-center">
-      <div className="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-full bg-green-100 text-3xl">
+      <div className="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-full border border-good/40 bg-good/15 text-3xl text-good">
         ✓
       </div>
-      <h1 className="text-2xl font-bold text-slate-900">{t("success.title")}</h1>
-      <p className="mt-2 text-slate-600">{t("success.subtitle")}</p>
+      <h1 className="text-2xl font-bold">{t("success.title")}</h1>
+      <p className="mt-2 text-muted">{t("success.subtitle")}</p>
       {orderId && (
-        <p className="mt-4 text-sm text-slate-400">
-          {t("success.order")}: <span className="font-mono">{orderId.slice(0, 8)}</span>
+        <p className="mt-4 text-sm text-faint">
+          {t("success.order")}: <span className="num">{orderId.slice(0, 8)}</span>
         </p>
       )}
       <Link href="/" className="btn-primary mt-6">

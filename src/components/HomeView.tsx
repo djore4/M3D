@@ -15,11 +15,6 @@ export default function HomeView({
 }) {
   const { lang, t } = useLang();
 
-  const specs =
-    lang === "pt"
-      ? ["Impressão sob encomenda", "PLA / Resina", "Feito em Portugal"]
-      : ["Made to order", "PLA / Resin", "Made in Portugal"];
-
   return (
     <div>
       {/* Hero */}
@@ -27,45 +22,48 @@ export default function HomeView({
         <div className="container-page grid gap-12 py-20 sm:py-28 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
           <div>
             <p className="eyebrow mb-5">Merch · 3D · Studio</p>
-            <h1 className="text-[2.6rem] font-extrabold leading-[1.02] text-ink-950 sm:text-6xl">
-              {t("home.hero.title")}
+            <h1 className="text-[2.7rem] font-extrabold leading-[1.03] sm:text-6xl">
+              {lang === "pt" ? "Objetos impressos " : "Objects printed "}
+              <span className="bg-gradient-to-r from-white via-brand-400 to-accent2 bg-clip-text text-transparent">
+                {lang === "pt" ? "em 3D" : "in 3D"}
+              </span>
             </h1>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-ink-500">{t("home.hero.subtitle")}</p>
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-muted">{t("home.hero.subtitle")}</p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link href="/loja" className="btn-primary">
                 {t("home.hero.cta")}
                 <span aria-hidden>→</span>
               </Link>
-              <Link href="/loja" className="btn-secondary">
-                {lang === "pt" ? "Ver promoções" : "See sale"}
+              <Link href="/sobre" className="btn-secondary">
+                {t("nav.about")}
               </Link>
             </div>
-            <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2">
-              {specs.map((s) => (
-                <span key={s} className="flex items-center gap-2 text-sm text-ink-500">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand-500" />
-                  {s}
-                </span>
+            <div className="mt-10 flex flex-wrap gap-8">
+              {[
+                ["0.1", "mm", lang === "pt" ? "precisão" : "precision"],
+                ["PLA", "", lang === "pt" ? "reciclável" : "recyclable"],
+                ["24h", "", lang === "pt" ? "resposta" : "reply"],
+              ].map(([a, b, c]) => (
+                <div key={c} className="flex flex-col gap-0.5">
+                  <span className="num text-xl font-semibold text-fg">
+                    {a}
+                    <span className="text-[13px]">{b}</span>
+                  </span>
+                  <span className="text-xs text-faint">{c}</span>
+                </div>
               ))}
             </div>
           </div>
 
           {/* Painel visual */}
-          <div className="relative mx-auto hidden aspect-square w-full max-w-sm lg:block">
-            <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-brand-600 via-brand-500 to-brand-400 shadow-lift" />
-            <div
-              className="absolute inset-0 rounded-[2rem] opacity-[0.15]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)",
-                backgroundSize: "28px 28px",
-              }}
-            />
+          <div className="relative mx-auto hidden aspect-square w-full max-w-sm overflow-hidden rounded-[26px] border border-line2 lg:block"
+            style={{ background: "radial-gradient(120% 120% at 30% 20%,#1b1830,#0c0c14)" }}>
+            <div className="techgrid absolute inset-0 opacity-60" />
             <div className="absolute inset-0 grid place-items-center">
-              <CubeMark className="h-40 w-40 text-white drop-shadow-2xl" />
+              <CubeMark className="h-40 w-40 text-brand-400 drop-shadow-[0_20px_40px_rgba(124,108,255,.6)]" />
             </div>
-            <div className="num absolute bottom-5 left-5 rounded-xl bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
-              0.1mm · precision
+            <div className="num absolute bottom-5 left-5 rounded-lg border border-line2 bg-bg/60 px-3 py-1.5 text-xs text-fg backdrop-blur">
+              {"// rendering · 0.1mm"}
             </div>
           </div>
         </div>
@@ -92,7 +90,7 @@ function Section({ eyebrow, title, children }: { eyebrow: string; title: string;
     <section>
       <div className="mb-6">
         <p className="eyebrow mb-2">{eyebrow}</p>
-        <h2 className="text-2xl font-bold text-ink-950 sm:text-3xl">{title}</h2>
+        <h2 className="text-2xl font-bold sm:text-3xl">{title}</h2>
       </div>
       {children}
     </section>

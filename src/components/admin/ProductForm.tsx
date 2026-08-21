@@ -79,6 +79,21 @@ export default function ProductForm({
             <input name="stock" type="number" min="0" className="input" defaultValue={product?.stock ?? 0} />
           </div>
         </div>
+        <div className="pt-2">
+          <label className="label">Tamanhos disponíveis</label>
+          <div className="flex flex-wrap gap-3">
+            {["S", "M", "L"].map((s) => (
+              <label
+                key={s}
+                className="flex cursor-pointer items-center gap-2 rounded-lg border border-line px-3 py-2 text-sm"
+              >
+                <input type="checkbox" name="sizes" value={s} defaultChecked={product?.sizes?.includes(s) ?? false} />
+                {s}
+              </label>
+            ))}
+          </div>
+        </div>
+
         <div className="flex flex-wrap gap-6 pt-2">
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" name="is_promo" defaultChecked={product?.is_promo ?? false} />
@@ -106,7 +121,7 @@ export default function ProductForm({
             placeholder="https://photos.app.goo.gl/..."
             defaultValue={product?.google_photos_url ?? ""}
           />
-          <p className="mt-1 text-xs text-slate-400">
+          <p className="mt-1 text-xs text-faint">
             As fotos apresentadas na loja são as carregadas abaixo. Este link fica guardado só como
             referência de gestão.
           </p>

@@ -4,11 +4,8 @@
 
 :root {
   --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Bricolage Grotesque", var(--font-sans);
+  --font-display: "Sora", var(--font-sans);
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
-
-  --page: #f3f3f7;
-  --page-2: #ecedf3;
 }
 
 @layer base {
@@ -17,28 +14,31 @@
     -webkit-text-size-adjust: 100%;
   }
   body {
-    background-color: var(--page);
+    background-color: #08080c;
     background-image:
-      radial-gradient(60rem 40rem at 100% -10%, rgba(75, 63, 228, 0.06), transparent 60%),
-      radial-gradient(50rem 40rem at -10% 0%, rgba(99, 93, 242, 0.05), transparent 55%);
+      radial-gradient(48rem 32rem at 82% -8%, rgba(124, 108, 255, 0.16), transparent 60%),
+      radial-gradient(40rem 30rem at -6% 4%, rgba(34, 211, 238, 0.08), transparent 55%);
     background-attachment: fixed;
-    @apply text-ink-900 antialiased;
+    min-height: 100vh;
+    @apply text-fg antialiased;
     font-family: var(--font-sans);
-    font-feature-settings: "cv05", "ss01";
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
+    line-height: 1.06;
     text-wrap: balance;
-    @apply text-ink-950;
+    @apply text-fg;
   }
   ::selection {
-    background: rgba(75, 63, 228, 0.16);
+    background: rgba(124, 108, 255, 0.28);
   }
   :focus-visible {
-    outline: 2px solid theme("colors.brand.600");
+    outline: 2px solid theme("colors.brand.500");
     outline-offset: 2px;
   }
+  ::-webkit-scrollbar { width: 11px; height: 11px; }
+  ::-webkit-scrollbar-thumb { background: #26262f; border-radius: 99px; border: 3px solid #08080c; }
 }
 
 @layer components {
@@ -46,10 +46,10 @@
     @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
   }
 
-  /* Etiquetas técnicas em mono/maiúsculas — assinatura "spec sheet" */
+  /* Etiqueta técnica em mono/maiúsculas (ciano) */
   .eyebrow {
     font-family: var(--font-mono);
-    @apply text-[11px] font-medium uppercase tracking-[0.18em] text-ink-400;
+    @apply text-[11px] font-medium uppercase tracking-[0.2em] text-accent2;
   }
   .num {
     font-family: var(--font-mono);
@@ -57,31 +57,40 @@
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-40;
   }
   .btn-primary {
-    @apply btn bg-brand-600 text-white shadow-soft hover:bg-brand-700 hover:shadow-lift;
+    @apply btn bg-brand-500 text-[#0a0a0e] hover:-translate-y-0.5 hover:shadow-glow;
   }
   .btn-secondary {
-    @apply btn border border-ink-200 bg-white/80 text-ink-800 backdrop-blur hover:border-brand-300 hover:text-brand-700;
+    @apply btn border border-line bg-surface text-fg hover:border-brand-500;
   }
   .btn-danger {
-    @apply btn bg-red-600 text-white hover:bg-red-700;
+    @apply btn bg-sale text-[#0a0a0e] hover:brightness-110;
   }
 
   .input {
-    @apply w-full rounded-xl border border-ink-200 bg-white px-3.5 py-2.5 text-sm text-ink-900 outline-none transition placeholder:text-ink-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-100;
+    @apply w-full rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm text-fg outline-none transition placeholder:text-faint focus:border-brand-500 focus:ring-4 focus:ring-brand-500/20;
   }
   .label {
-    @apply mb-1.5 block text-sm font-medium text-ink-700;
+    @apply mb-1.5 block text-sm font-medium text-muted;
   }
   .card {
-    @apply rounded-2xl border border-ink-200/70 bg-white shadow-soft;
+    @apply rounded-2xl border border-line bg-surface shadow-soft;
   }
   .badge {
     @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold tracking-wide;
   }
   .hairline {
-    @apply border-ink-200/70;
+    @apply border-line;
+  }
+  /* Mosaico de imagem — gradiente + grelha técnica para os placeholders */
+  .techgrid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.10) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.10) 1px, transparent 1px);
+    background-size: 26px 26px;
+    -webkit-mask-image: radial-gradient(70% 70% at 50% 45%, #000, transparent);
+    mask-image: radial-gradient(70% 70% at 50% 45%, #000, transparent);
   }
 }

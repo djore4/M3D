@@ -16,19 +16,19 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="flex min-h-screen bg-slate-100">
-      <aside className="hidden w-60 flex-col border-r border-slate-200 bg-white p-4 sm:flex">
-        <Link href="/admin" className="mb-6 flex items-center gap-2 font-display font-bold text-slate-900">
+    <div className="flex min-h-screen bg-bg2">
+      <aside className="hidden w-60 flex-col border-r border-line bg-surface p-4 sm:flex">
+        <Link href="/admin" className="mb-6 flex items-center gap-2 font-display font-bold text-fg">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-600 text-white">
             <CubeMark className="h-5 w-5" />
           </span>
           M3D · Gestão
         </Link>
         <AdminNav />
-        <div className="mt-auto border-t border-slate-200 pt-4">
-          <p className="mb-2 truncate text-xs text-slate-400">{user.email}</p>
+        <div className="mt-auto border-t border-line pt-4">
+          <p className="mb-2 truncate text-xs text-faint">{user.email}</p>
           <div className="flex items-center justify-between">
-            <Link href="/" className="text-sm text-slate-500 hover:text-brand-600">
+            <Link href="/" className="text-sm text-muted hover:text-brand-600">
               Ver loja
             </Link>
             <LogoutButton />
@@ -38,7 +38,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
       <div className="flex-1">
         {/* Barra superior (mobile) */}
-        <div className="flex items-center justify-between border-b border-slate-200 bg-white p-4 sm:hidden">
+        <div className="flex items-center justify-between border-b border-line bg-surface p-4 sm:hidden">
           <Link href="/admin" className="font-bold">
             Gestão
           </Link>

@@ -12,7 +12,7 @@ export default function LogoutButton() {
     router.refresh();
   }
   return (
-    <button onClick={logout} className="text-sm text-slate-500 hover:text-red-600">
+    <button onClick={logout} className="text-sm text-muted hover:text-red-600">
       Sair
     </button>
   );

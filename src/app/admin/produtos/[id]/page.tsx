@@ -24,11 +24,11 @@ export default async function EditProductPage({ params }: { params: { id: string
 
   return (
     <div className="mx-auto max-w-3xl">
-      <Link href="/admin/produtos" className="mb-4 inline-block text-sm text-slate-500 hover:text-slate-800">
+      <Link href="/admin/produtos" className="mb-4 inline-block text-sm text-muted hover:text-fg">
         ← Produtos
       </Link>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-900">{product.name_pt}</h1>
+        <h1 className="text-2xl font-bold text-fg">{product.name_pt}</h1>
         <Link href={`/produto/${product.slug}`} className="text-sm text-brand-600 hover:underline" target="_blank">
           Ver na loja ↗
         </Link>
@@ -38,11 +38,11 @@ export default async function EditProductPage({ params }: { params: { id: string
       <div className="card mb-6 space-y-4 p-6">
         <h2 className="text-lg font-semibold">Fotos</h2>
         {images.length === 0 ? (
-          <p className="text-sm text-slate-500">Ainda não há fotos. Carrega a primeira abaixo.</p>
+          <p className="text-sm text-muted">Ainda não há fotos. Carrega a primeira abaixo.</p>
         ) : (
           <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
             {images.map((img) => (
-              <div key={img.id} className="group relative aspect-square overflow-hidden rounded-lg border border-slate-200">
+              <div key={img.id} className="group relative aspect-square overflow-hidden rounded-lg border border-line">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={img.url} alt="" className="h-full w-full object-cover" />
                 <form action={deleteProductImage.bind(null, img.id, product.id)} className="absolute right-1 top-1">
@@ -59,7 +59,7 @@ export default async function EditProductPage({ params }: { params: { id: string
           </div>
         )}
 
-        <form action={uploadProductImage} className="flex flex-wrap items-center gap-3 border-t border-slate-100 pt-4">
+        <form action={uploadProductImage} className="flex flex-wrap items-center gap-3 border-t border-line pt-4">
           <input type="hidden" name="product_id" value={product.id} />
           <input
             type="file"
@@ -78,10 +78,10 @@ export default async function EditProductPage({ params }: { params: { id: string
       <ProductForm action={updateAction} product={product} submitLabel="Guardar alterações" />
 
       {/* Apagar */}
-      <div className="card mt-6 flex items-center justify-between border-red-200 bg-red-50 p-6">
+      <div className="card mt-6 flex items-center justify-between border-sale/40 bg-sale/10 p-6">
         <div>
-          <h3 className="font-semibold text-red-800">Apagar produto</h3>
-          <p className="text-sm text-red-600">Esta ação é permanente e remove também as fotos.</p>
+          <h3 className="font-semibold text-[#fda4b4]">Apagar produto</h3>
+          <p className="text-sm text-muted">Esta ação é permanente e remove também as fotos.</p>
         </div>
         <form action={deleteAction}>
           <button type="submit" className="btn-danger">

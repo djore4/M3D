@@ -20,7 +20,7 @@ export default function AdminNav() {
             key={l.href}
             href={l.href}
             className={`rounded-lg px-3 py-2 text-sm font-medium ${
-              active ? "bg-brand-600 text-white" : "text-slate-600 hover:bg-slate-100"
+              active ? "bg-brand-600 text-white" : "text-muted hover:bg-bg2"
             }`}
           >
             {l.label}

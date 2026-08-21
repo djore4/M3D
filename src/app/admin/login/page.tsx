@@ -30,14 +30,14 @@ function LoginForm() {
   }
 
   return (
-    <div className="grid min-h-screen place-items-center bg-slate-100 px-4">
+    <div className="grid min-h-screen place-items-center bg-bg2 px-4">
       <form onSubmit={handleSubmit} className="card w-full max-w-sm space-y-4 p-8">
         <div className="text-center">
           <div className="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-xl bg-brand-600 text-white shadow-soft">
             <CubeMark className="h-7 w-7" />
           </div>
-          <h1 className="font-display text-xl font-bold text-ink-950">Gestão · M3D</h1>
-          <p className="text-sm text-ink-500">Inicia sessão para gerir a loja</p>
+          <h1 className="font-display text-xl font-bold text-fg">Gestão · M3D</h1>
+          <p className="text-sm text-muted">Inicia sessão para gerir a loja</p>
         </div>
 
         <div>
@@ -73,7 +73,7 @@ function LoginForm() {
 
 export default function AdminLoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-slate-100" />}>
+    <Suspense fallback={<div className="min-h-screen bg-bg2" />}>
       <LoginForm />
     </Suspense>
   );

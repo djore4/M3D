@@ -12,10 +12,10 @@ const STATUS_LABEL: Record<string, string> = {
   cancelled: "Cancelado",
 };
 const STATUS_STYLE: Record<string, string> = {
-  pending: "bg-amber-100 text-amber-800",
-  paid: "bg-green-100 text-green-800",
-  shipped: "bg-blue-100 text-blue-800",
-  cancelled: "bg-slate-200 text-slate-600",
+  pending: "bg-amber-500/15 text-amber-300",
+  paid: "bg-good/15 text-good",
+  shipped: "bg-brand-500/15 text-brand-200",
+  cancelled: "bg-white/10 text-muted",
 };
 
 export default async function AdminOrdersPage({
@@ -41,7 +41,7 @@ export default async function AdminOrdersPage({
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-slate-900">Encomendas</h1>
+      <h1 className="mb-6 text-2xl font-bold text-fg">Encomendas</h1>
 
       <div className="mb-4 flex flex-wrap gap-2">
         {filters.map((f) => {
@@ -51,7 +51,7 @@ export default async function AdminOrdersPage({
               key={f.key || "all"}
               href={f.key ? `/admin/encomendas?status=${f.key}` : "/admin/encomendas"}
               className={`rounded-full px-3 py-1 text-sm font-medium ${
-                active ? "bg-brand-600 text-white" : "bg-white text-slate-600 hover:bg-slate-100"
+                active ? "bg-brand-500 text-[#0a0a0e]" : "bg-surface text-muted hover:bg-bg2"
               }`}
             >
               {f.label}
@@ -62,11 +62,11 @@ export default async function AdminOrdersPage({
 
       <div className="card overflow-hidden">
         {orders.length === 0 ? (
-          <p className="p-6 text-sm text-slate-500">Nenhuma encomenda encontrada.</p>
+          <p className="p-6 text-sm text-muted">Nenhuma encomenda encontrada.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 text-left text-xs uppercase text-slate-400">
+              <thead className="bg-surface2 text-left text-xs uppercase text-faint">
                 <tr>
                   <th className="px-4 py-3">Data</th>
                   <th className="px-4 py-3">Cliente</th>
@@ -75,15 +75,15 @@ export default async function AdminOrdersPage({
                   <th className="px-4 py-3"></th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-line">
                 {orders.map((o) => (
-                  <tr key={o.id} className="hover:bg-slate-50">
-                    <td className="whitespace-nowrap px-4 py-3 text-slate-500">
+                  <tr key={o.id} className="hover:bg-surface2">
+                    <td className="whitespace-nowrap px-4 py-3 text-muted">
                       {formatDate(o.created_at, "pt")}
                     </td>
                     <td className="px-4 py-3">
-                      <div className="font-medium text-slate-900">{o.customer_name || "—"}</div>
-                      <div className="text-xs text-slate-400">{o.customer_email}</div>
+                      <div className="font-medium text-fg">{o.customer_name || "—"}</div>
+                      <div className="text-xs text-faint">{o.customer_email}</div>
                     </td>
                     <td className="px-4 py-3">
                       <span className={`badge ${STATUS_STYLE[o.status]}`}>{STATUS_LABEL[o.status]}</span>
